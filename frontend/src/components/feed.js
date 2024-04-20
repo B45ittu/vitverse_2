@@ -1,21 +1,33 @@
-import React from 'react'
+import React, { useEffect, useState } from "react";
 import Question from './question'
-import Post from './post'
+import Post from './Post'
 import './feed.css'
+import axios from 'axios'
 
-function feed() {
+
+function Feed() {
+
+    useEffect(()=>{
+        axios.get('/api/questions').then((res)=>{
+            console.log(res.data);
+        }).catch(()=>{
+            console.log("unexcepted error");
+        })
+    },[]);
+
     return (
         <div className='feed'>
-            <div className='feed_compo'>
-                <Question/>
-            </div>
             
-            <div className='feed_compo'>
+                <Question/>
+                <br/>
                 <Post/>
-            </div>
+                <br/>
+                <Post/>
+  
+            
 
         </div>
     )
 }
 
-export default feed
+export default Feed

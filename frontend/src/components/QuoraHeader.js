@@ -13,11 +13,43 @@ import { Avatar, Button, Input } from "@mui/material";
 import Modal from "react-responsive-modal";
 import CloseIcon from "@mui/icons-material/Close";
 import "react-responsive-modal/styles.css";
+import axios from "axios";
 
 function QuoraHeader() {
+
   const [isModalOpen, SetisModalOpen] = useState(false);
   const [inputurl, setinputurl] = useState("");
+  const [ques, setQues] = useState("");
+
   const close = <CloseIcon />;
+
+  const submitquestion = async () => {
+    if (ques !== "") {
+      const config = {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      };
+      const body = {
+        questionName: ques,
+        questionUrl: inputurl,
+        // user: user,
+      };
+      await axios
+        .post("/api/questions", body, config)
+        .then((res) => {
+          console.log(res.data);
+          alert("succesfully added");
+          // window.location.href = "/";
+          SetisModalOpen(false);
+        })
+        .catch((e) => {
+          console.log(e);
+          alert("Error in adding question");
+        });
+    }
+  };
+
   return (
     <div className="header">
       <div className="header-content">
@@ -62,9 +94,6 @@ function QuoraHeader() {
           </Button>
         </div>
 
-
-
-
         <Modal
           open={isModalOpen}
           closeIcon={close}
@@ -78,10 +107,12 @@ function QuoraHeader() {
             },
           }}
         >
+
           <div className="modal__title">
             <h5>Add Question</h5>
             <h5>Share link</h5>
           </div>
+          
           <div className="modal__info">
             <Avatar className="avatar" />
             <div className="modal__scope">
@@ -92,6 +123,8 @@ function QuoraHeader() {
           </div>
           <div className="modal__Field">
             <Input
+              value={ques}
+              onChange={(e) => setQues(e.target.value)}
               type=" text"
               placeholder="Start your question with 'What', 'How', 'Why', etc. "
             />
@@ -113,12 +146,17 @@ function QuoraHeader() {
                 }}
                 placeholder="Optional: inclue a link that gives context"
               />
-              {inputurl !== "" && <img src={inputurl} alt="image of url" 
-                style={{
-                    height:"auto",
-                    objectFit:"contain"
-                }}
-              />}
+
+              {inputurl !== "" && (
+                <img
+                  src={inputurl}
+                  alt="image of url"
+                  style={{
+                    height: "auto",
+                    objectFit: "contain",
+                  }}
+                />
+              )}
             </div>
           </div>
 
@@ -126,14 +164,11 @@ function QuoraHeader() {
             <button className="cancel" onClick={() => SetisModalOpen(false)}>
               Cancel
             </button>
-            <button type="submit" className="add">
+            <button onClick={submitquestion} type="submit" className="add">
               Add Question
             </button>
           </div>
         </Modal>
-
-
-
 
       </div>
     </div>

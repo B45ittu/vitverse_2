@@ -1,9 +1,10 @@
 import React from 'react'
 import QuoraHeader from './QuoraHeader'
 import Sidebar from './sidebar'
-import Feed from './feed'
+import Feed from './Feed'
 import Widgets from'./widgets'
 import './Quora.css'
+
 function Quora() {
     return (
         <div className='quora'>
