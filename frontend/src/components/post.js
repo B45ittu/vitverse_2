@@ -129,6 +129,7 @@ function Post() {
           </div>
           <div className="post-answer">this is answer</div>
         </div>
+        
       </div>
     </div>
   );
