@@ -22,7 +22,8 @@ function Feed() {
     <div className="feed">
       <Question />
       {posts.map((post, index) => (
-        <Post key={index} post={post} />
+        <Post key={index} post={post} />   
+        //key is like id.  post is for props passed to post component.
       ))}
     </div>
   );

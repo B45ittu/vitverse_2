@@ -1,34 +1,88 @@
 .login-container {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 100vh;
-    width: 100vw;
-    box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background: linear-gradient(
+    -45deg,
+    #ff00ff,
+    #ff0080,
+    #ff0000,
+    #ff8000,
+    #ffff00,
+    #80ff00,
+    #00ff00,
+    #00ff80,
+    #00ffff,
+    #0080ff,
+    #0000ff,
+    #8000ff,
+    #ff00ff
+  );
+  background-size: 500% 500%; /* Increased size for smoother animation */
+  animation: gradientAnimation 20s ease infinite; /* Slower animation for a more subtle effect */
+  transition: background 0.5s ease; /* Smooth transition on hover */
+}
+
+.login-container:hover {
+  background: linear-gradient(
+    -45deg,
+    #00ffff,
+    #0080ff,
+    #0000ff,
+    #8000ff,
+    #ff00ff,
+    #ff0080,
+    #ff0000,
+    #ff8000,
+    #ffff00,
+    #80ff00,
+    #00ff00,
+    #00ff80,
+    #00ffff
+  );
+}
+
+@keyframes gradientAnimation {
+  0% {
+    background-position: 0% 50%;
   }
-  
-  .login-content {
-    display: flex;
-    align-items: center;
-    flex-direction: column;
+  50% {
+    background-position: 100% 50%;
   }
-  
-  .login-content > img {
-    width: 200px;
-    object-fit: contain;
-    margin: 20px;
+  100% {
+    background-position: 0% 50%;
   }
-  
-  .login-content > button {
-    padding: 10px;
-    margin: 50px 0px;
-    background-color: #000;
-    color: #fff;
-    outline: none;
-    border: none;
-    border-radius: 3px;
-    letter-spacing: 1.1px;
-    font-family: monospace;
-    cursor: pointer;
-  }
-  
+}
+
+.login-content {
+  text-align: center;
+  color: #fff;
+}
+
+.logo-container {
+  margin-bottom: 20px;
+}
+
+.logo {
+  width: 100px;
+}
+
+.title {
+  font-size: 24px;
+  margin-top: 10px;
+}
+
+.btn-login {
+  padding: 10px 20px;
+  background-color: #4caf50;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.btn-login:hover {
+  background-color: #45a049;
+}

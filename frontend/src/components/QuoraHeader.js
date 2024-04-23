@@ -14,13 +14,17 @@ import Modal from "react-responsive-modal";
 import CloseIcon from "@mui/icons-material/Close";
 import "react-responsive-modal/styles.css";
 import axios from "axios";
+import CodeIcon from "@mui/icons-material/Code";
+import { signOut,logOut } from "firebase/auth";
+import { auth } from "../firebase";
+import { useDispatch } from "react-redux";
+import { logout, selectUser } from "../features/userSlice";
 
 function QuoraHeader() {
-
   const [isModalOpen, SetisModalOpen] = useState(false);
   const [inputurl, setinputurl] = useState("");
   const [ques, setQues] = useState("");
-
+  const dispatch=useDispatch();
   const close = <CloseIcon />;
 
   const submitquestion = async () => {
@@ -40,12 +44,25 @@ function QuoraHeader() {
         .then((res) => {
           console.log(res.data);
           alert("succesfully added");
-          // window.location.href = "/";
+          window.location.href = "/";
           SetisModalOpen(false);
         })
         .catch((e) => {
           console.log(e);
           alert("Error in adding question");
+        });
+    }
+  };
+
+  const loggingOut = () => {
+    if (window.confirm("Are sure to logout")) {
+      signOut(auth)
+        .then(() => {
+          dispatch(logout());
+          console.log("logged out");
+        })
+        .catch(() => {
+          console.log("error in logging out");
         });
     }
   };
@@ -75,6 +92,9 @@ function QuoraHeader() {
           <div className="header-icon">
             <NotificationsOutlined />
           </div>
+          <div className="header-icon">
+            <CodeIcon />
+          </div>
         </div>
         <div className="header-input">
           <Search />
@@ -82,7 +102,7 @@ function QuoraHeader() {
         </div>
 
         <div className="header_rem">
-          <Avatar />
+          <span onClick={loggingOut}><Avatar/></span>
         </div>
         <div>
           <Button
@@ -107,12 +127,11 @@ function QuoraHeader() {
             },
           }}
         >
-
           <div className="modal__title">
             <h5>Add Question</h5>
             <h5>Share link</h5>
           </div>
-          
+
           <div className="modal__info">
             <Avatar className="avatar" />
             <div className="modal__scope">
@@ -169,7 +188,6 @@ function QuoraHeader() {
             </button>
           </div>
         </Modal>
-
       </div>
     </div>
   );

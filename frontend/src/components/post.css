@@ -67,62 +67,63 @@
     margin-left: 30px;
   }
 
-  .modal__button {
+  .modal__answer {
+    display: flex;
+    flex-direction: column; /* Change to column layout */
+    padding-top: 20px;
+    height: 100%;
+}
+
+.modal__buttons {
     display: flex;
     align-items: center;
-    flex-direction: row;
     justify-content: space-between;
-    margin-top: 50px;
+    margin-top: 20px; /* Reduce the margin */
     width: 100%;
-  }
-  
-  .modal__button > .cancle {
+}
+
+.modal__buttons > .cancel {
     border: none;
-    margin-top: 10px;
     outline: none;
     color: gray;
     font-weight: 500;
-    padding: 10px;
     border-radius: 33px;
     cursor: pointer;
-  }
-  
-  .modal__button > .cancle:hover {
+}
+
+.modal__buttons > .cancel:hover {
     color: red;
-  }
-  .modal__button > .add {
+}
+
+.modal__buttons > .add {
     border: none;
     outline: none;
-    margin-top: 5px;
     background-color: #222;
     color: white;
     font-weight: 700;
-    padding: 10px;
     border-radius: 33px;
     cursor: pointer;
     width: 50%;
-  }
-  .modal__button > .add:hover {
+}
+
+.modal__buttons > .add:hover {
     background-color: #eee;
     color: #222;
-  }
-  .modal__answer {
-    display: flex;
-    padding-top: 20px;
-    height: 68%;
-    flex: 1;
-  }
-  
-  .modal__answer > textarea {
-    width: 75%;
-    height: 150px;
+}
+
+.modal__answer > textarea {
+    width: 100%; /* Adjust the width */
+    height: 100%;
     padding: 5px;
     font-size: 15px;
     color: black;
-  }
-  
-  .quill {
+}
+
+.react-responsive-modal-modal {
+    height: 85%;
+}
+
+.quill {
     width: 100%;
-    height: 100px;
-  }
-  
+    height: 50%;
+}
