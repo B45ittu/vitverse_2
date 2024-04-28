@@ -1,11 +1,14 @@
 import React, { useEffect } from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import "./App.css";
 import Login from "./authentication/login";
 import Quora from "./components/Quora";
+import LeaderboardPage from "./components/Leaderboard"; // Import the LeaderboardPage component
 import { login, selectUser } from "./features/userSlice";
 import { auth } from "./firebase";
 import { onAuthStateChanged } from "firebase/auth";
+import QuoraHeader from "./components/QuoraHeader"; // Import the QuoraHeader component
 
 function App() {
   const user = useSelector(selectUser);
@@ -26,12 +29,19 @@ function App() {
       }
     });
   }, [dispatch]);
+
   return (
-    <div className="App">
-      {/* <h1>This is for testing</h1> */}
-      {user ? <Quora /> : <Login />}
-    </div>
+    <Router>
+      <div className="App">
+        <QuoraHeader /> {/* Render the header outside of Route components */}
+        <Routes>
+          {/* Define routes */}
+          <Route path="/" element={user ? <Quora /> : <Login />} />
+          <Route path="/leaderboard" element={<LeaderboardPage />} />
+          {/* Define other routes */}
+        </Routes>
+      </div>
+    </Router>
   );
 }
-
 export default App;

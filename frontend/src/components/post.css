@@ -42,7 +42,7 @@
     padding: 5px;
     align-items: center;
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
     border-radius: 33px;
   }
   .post__footerAction > .MuiSvgIcon-root {
@@ -126,4 +126,8 @@
 .quill {
     width: 100%;
     height: 50%;
+}
+
+span{
+  margin-right: 25px;
 }

@@ -78,6 +78,7 @@ function Login() {
           onMouseLeave={handleMouseLeave}
           style={{ color: isHovered ? "#000" : textColor }}
         >
+          <h1>Together we build.</h1>
           <img
             src="https://video-public.canva.com/VAD8lt3jPyI/v/ec7205f25c.gif"
             alt="logo"

@@ -1,11 +1,14 @@
+// ParentComponent.js
+
 import React, { useEffect, useState } from "react";
-import Question from "./question";
+import Question from "./Question";
 import Post from "./Post";
 import "./feed.css";
 import axios from "axios";
 
 function Feed() {
   const [posts, setPosts] = useState([]);
+  
   useEffect(() => {
     axios
       .get("/api/questions")
@@ -22,8 +25,7 @@ function Feed() {
     <div className="feed">
       <Question />
       {posts.map((post, index) => (
-        <Post key={index} post={post} />   
-        //key is like id.  post is for props passed to post component.
+        <Post key={index} post={post} setPosts={setPosts} />   
       ))}
     </div>
   );

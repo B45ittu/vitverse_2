@@ -9,7 +9,6 @@ import {
   MoreHorizOutlined,
 } from "@mui/icons-material";
 import "./post.css";
-
 import Modal from "react-responsive-modal";
 import CloseIcon from "@mui/icons-material/Close";
 import "react-responsive-modal/styles.css";
@@ -18,6 +17,8 @@ import "react-quill/dist/quill.snow.css";
 import ReactTimeAgo from "react-time-ago";
 import axios from "axios";
 import ReactHtmlParser from "html-react-parser";
+import { useSelector } from "react-redux";
+import { selectUser } from "../features/userSlice";
 
 function LastSeen({ date }) {
   return (
@@ -27,13 +28,51 @@ function LastSeen({ date }) {
   );
 }
 
-function Post({ post }) {
+function Post({ post, setPosts }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [answers, setAnswer] = useState("");
+  const [hasUpvoted, setHasUpvoted] = useState(false);
+  const [hasDownvoted, setHasDownvoted] = useState(false);
+  const Close = <CloseIcon />;
+  const user = useSelector(selectUser);
+
   const handleQuill = (value) => {
     setAnswer(value);
   };
-  const Close = <CloseIcon />;
+
+  const handleUpvote = async () => {
+    if (!hasUpvoted) {
+      try {
+        const updatedPost = { ...post, upvotes: post.upvotes + 1 };
+        setPosts((prevPosts) =>
+          prevPosts.map((prevPost) =>
+            prevPost._id === post._id ? updatedPost : prevPost
+          )
+        );
+        await axios.post(`/api/questions/upvote/${post?._id}`);
+        setHasUpvoted(true);
+      } catch (error) {
+        console.error("Error upvoting post:", error);
+      }
+    }
+  };
+
+  const handleDownvote = async () => {
+    if (!hasDownvoted) {
+      try {
+        const updatedPost = { ...post, downvotes: post.downvotes + 1 };
+        setPosts((prevPosts) =>
+          prevPosts.map((prevPost) =>
+            prevPost._id === post._id ? updatedPost : prevPost
+          )
+        );
+        await axios.post(`/api/questions/downvote/${post?._id}`);
+        setHasDownvoted(true);
+      } catch (error) {
+        console.error("Error downvoting post:", error);
+      }
+    }
+  };
 
   const handleSubmit = async () => {
     if (post?._id && answers !== "") {
@@ -45,26 +84,24 @@ function Post({ post }) {
       const body = {
         answer: answers,
         questionId: post?._id,
-        // user: user,
+        user: user,
       };
-      await axios
-        .post("/api/answers", body, config)
-        .then((res) => {
-          console.log(res.data);
-          alert("Answer added succesfully");
-          setIsModalOpen(false);
-          window.location.href = "/";
-        })
-        .catch((e) => {
-          console.log(e);
-        });
+      try {
+        await axios.post("/api/answers", body, config);
+        alert("Answer added successfully");
+        setIsModalOpen(false);
+        window.location.href = "/";
+      } catch (error) {
+        console.error("Error submitting answer:", error);
+      }
     }
   };
+
   return (
     <div className="post">
       <div className="post_info">
         <Avatar />
-        <h4>username</h4>
+        <h4>userName</h4>
         <small>
           <LastSeen date={post?.createdAt} />
         </small>
@@ -96,7 +133,8 @@ function Post({ post }) {
           <div className="modal__question">
             <h1>{post?.questionName}</h1>
             <p>
-              asked by <span className="name">"username"</span> on {"time"}
+              asked by <span className="name">{user?.email}</span> on{" "}
+              {"time"}
               <span className="name">
                 {new Date(post?.createdAt).toLocaleString()}
               </span>
@@ -123,8 +161,13 @@ function Post({ post }) {
 
       <div className="post__footer">
         <div className="post__footerAction">
-          <ArrowUpwardOutlined />
-          <ArrowDownwardOutlined />
+          <span onClick={handleUpvote}>
+            <ArrowUpwardOutlined /> {post?.upvotes}
+          </span>
+          <span onClick={handleDownvote}>
+            <ArrowDownwardOutlined />
+            {post?.downvotes}
+          </span>
         </div>
         <RepeatOneOutlined />
         <ChatBubbleOutlined />
@@ -146,7 +189,6 @@ function Post({ post }) {
       </p>
 
       <div className="post_answer">
-
         <div
           style={{
             display: "flex",
@@ -157,9 +199,9 @@ function Post({ post }) {
           }}
           className="post-answer-container"
         >
-        {post?.allAnswers?.map((ans) => (   //mapping every answer for the particular question. loop.
-          <>
+          {post?.allAnswers?.map((ans) => (
             <div
+              key={ans._id}
               style={{
                 display: "flex",
                 flexDirection: "column",
@@ -187,7 +229,7 @@ function Post({ post }) {
                   }}
                   className="post-info"
                 >
-                  <p>{ans?.user}</p>
+                  <p>{ans?.user?.userName}</p>
                   <span>
                     <LastSeen date={ans?.createdAt} />
                   </span>
@@ -195,10 +237,9 @@ function Post({ post }) {
               </div>
               <div className="post-answer">{ReactHtmlParser(ans?.answer)}</div>
             </div>
-          </>
-        ))}
+          ))}
+        </div>
       </div>
-    </div>
     </div>
   );
 }
