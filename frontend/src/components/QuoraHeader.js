@@ -7,7 +7,8 @@ import {
   NotificationsOutlined,
   PeopleAltOutlined,
   Search,
-} from "@mui/icons-material";
+} 
+from "@mui/icons-material";
 import { FeaturedPlayList } from "@mui/icons-material";
 import { Avatar, Button, Input } from "@mui/material";
 import Modal from "react-responsive-modal";
@@ -20,6 +21,7 @@ import { auth } from "../firebase";
 import { useDispatch, useSelector } from "react-redux";
 import { logout, selectUser } from "../features/userSlice";
 import { useNavigate } from "react-router-dom";
+import { setSearchText, selectSearchText } from "../features/searchSlice";
 
 function QuoraHeader() {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -28,6 +30,11 @@ function QuoraHeader() {
   const dispatch = useDispatch();
   const user = useSelector(selectUser);
   const navigate = useNavigate();
+  const searchText = useSelector(selectSearchText);
+
+  const handleSearch = (e) => {
+    dispatch(setSearchText(e.target.value));
+  };
 
   const submitQuestion = async () => {
     if (question !== "") {
@@ -67,13 +74,13 @@ function QuoraHeader() {
     }
   };
 
-  const goToLeaderboard = useCallback(() => {
+  const goToLeaderboard = () => {
     navigate("/leaderboard");
-  }, [navigate]);
+  };
 
-  const goToHome = useCallback(() => {
+  const goToHome = () => {
     navigate("/");
-  }, [navigate]);
+  };
 
   return (
     <div className="header">
@@ -85,8 +92,8 @@ function QuoraHeader() {
           />
         </div>
         <div className="header-icons">
-          <div className="header-icon">
-            <CottageIcon onClick={goToHome}/>
+          <div className="header-icon" onClick={goToHome}>
+            <CottageIcon />
           </div>
           <div className="header-icon">
             <FeaturedPlayList />
@@ -106,7 +113,12 @@ function QuoraHeader() {
         </div>
         <div className="header-input">
           <Search />
-          <input type="text" placeholder="search question" />
+          <input
+            type="text"
+            placeholder="search question"
+            value={searchText}
+            onChange={handleSearch}
+          />
         </div>
 
         <div className="header_rem">
@@ -170,6 +182,7 @@ function QuoraHeader() {
                 />
 
                 {inputUrl !== "" && (
+                  // eslint-disable-next-line jsx-a11y/img-redundant-alt
                   <img
                     src={inputUrl}
                     alt="image of url"

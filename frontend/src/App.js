@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect,useState } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import "./App.css";
@@ -12,6 +12,7 @@ import QuoraHeader from "./components/QuoraHeader"; // Import the QuoraHeader co
 
 function App() {
   const user = useSelector(selectUser);
+  const [searchQuery, setSearchQuery] = useState("");
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -33,7 +34,7 @@ function App() {
   return (
     <Router>
       <div className="App">
-        <QuoraHeader /> {/* Render the header outside of Route components */}
+      <QuoraHeader/> 
         <Routes>
           {/* Define routes */}
           <Route path="/" element={user ? <Quora /> : <Login />} />
