@@ -22,7 +22,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { logout, selectUser } from "../features/userSlice";
 import { useNavigate } from "react-router-dom";
 import { setSearchText, selectSearchText } from "../features/searchSlice";
-
+import { detectOffensiveLanguage } from "../algorithms/sensitivity";
 function QuoraHeader() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [inputUrl, setInputUrl] = useState("");
@@ -38,6 +38,13 @@ function QuoraHeader() {
 
   const submitQuestion = async () => {
     if (question !== "") {
+      // Check for offensive language before submitting the question
+      const isOffensive = detectOffensiveLanguage(question);
+      if (isOffensive) {
+        alert("Your question contains offensive language. Please revise it.");
+        return;
+      }
+
       const config = {
         headers: {
           "Content-Type": "application/json",
@@ -60,6 +67,7 @@ function QuoraHeader() {
       }
     }
   };
+
 
   const loggingOut = () => {
     if (window.confirm("Are you sure you want to logout?")) {

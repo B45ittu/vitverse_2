@@ -19,6 +19,7 @@ import axios from "axios";
 import ReactHtmlParser from "html-react-parser";
 import { useSelector } from "react-redux";
 import { selectUser } from "../features/userSlice";
+import { detectOffensiveLanguage } from "../algorithms/sensitivity";
 
 function LastSeen({ date }) {
   return (
@@ -40,52 +41,63 @@ function Post({ post, setPosts }) {
     setAnswer(value);
   };
 
-  const handleUpvote = async () => {
-    if (!hasUpvoted) {
+  const handleVote = async (type) => {
+    if (
+      (type === "upvote" && !hasUpvoted && !hasDownvoted) ||
+      (type === "downvote" && !hasDownvoted && !hasUpvoted)
+    ) {
       try {
-        const updatedPost = { ...post, upvotes: post.upvotes + 1 };
+        const updatedPost = {
+          ...post,
+          [type === "upvote" ? "upvotes" : "downvotes"]:
+            post[type === "upvote" ? "upvotes" : "downvotes"] + 1,
+        };
         setPosts((prevPosts) =>
           prevPosts.map((prevPost) =>
             prevPost._id === post._id ? updatedPost : prevPost
           )
         );
-        await axios.post(`/api/questions/upvote/${post?._id}`);
-        setHasUpvoted(true);
+        await axios.post(`/api/questions/${type}/${post?._id}`);
+        setHasUpvoted(type === "upvote");
+        setHasDownvoted(type === "downvote");
       } catch (error) {
-        console.error("Error upvoting post:", error);
+        console.error(`Error ${type}ing post:`, error);
       }
-    }
-  };
-
-  const handleDownvote = async () => {
-    if (!hasDownvoted) {
+    } else if (
+      (type === "upvote" && hasDownvoted) ||
+      (type === "downvote" && hasUpvoted)
+    ) {
       try {
-        const updatedPost = { ...post, downvotes: post.downvotes + 1 };
+        const updatedPost = {
+          ...post,
+          upvotes: post.upvotes + (type === "upvote" ? 1 : -1),
+          downvotes: post.downvotes + (type === "downvote" ? 1 : -1),
+        };
         setPosts((prevPosts) =>
           prevPosts.map((prevPost) =>
             prevPost._id === post._id ? updatedPost : prevPost
           )
         );
-        await axios.post(`/api/questions/downvote/${post?._id}`);
-        setHasDownvoted(true);
+        await axios.post(`/api/questions/${type}/${post?._id}`);
+        setHasUpvoted(type === "upvote");
+        setHasDownvoted(type === "downvote");
       } catch (error) {
-        console.error("Error downvoting post:", error);
+        console.error(`Error ${type}ing post:`, error);
       }
     }
   };
 
   const handleSubmit = async () => {
     if (post?._id && answers !== "") {
-      const config = {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      };
-      const body = {
-        answer: answers,
-        questionId: post?._id,
-        user: user,
-      };
+      // Check for offensive language
+      const isOffensive = detectOffensiveLanguage(answers);
+      if (isOffensive) {
+        alert("Your answer contains offensive language. Please revise it.");
+        return;
+      }
+  
+      const config = { headers: { "Content-Type": "application/json" } };
+      const body = { answer: answers, questionId: post?._id, user };
       try {
         await axios.post("/api/answers", body, config);
         alert("Answer added successfully");
@@ -96,25 +108,20 @@ function Post({ post, setPosts }) {
       }
     }
   };
+  
 
   return (
     <div className="post">
       <div className="post_info">
-        <Avatar />
-        <h4>userName</h4>
+        <Avatar src={user?.photo}/>
+        <h4>{user?.userName}</h4>
         <small>
           <LastSeen date={post?.createdAt} />
         </small>
       </div>
       <div className="post_body">
         <h3>{post?.questionName}</h3>
-        <Button
-          className="post_btnAnswer"
-          onClick={() => {
-            setIsModalOpen(true);
-            console.log(post?._id);
-          }}
-        >
+        <Button className="post_btnAnswer" onClick={() => setIsModalOpen(true)}>
           Add answer
         </Button>
         <Modal
@@ -124,17 +131,12 @@ function Post({ post, setPosts }) {
           closeOnEsc
           center
           closeOnOverlayClick={false}
-          styles={{
-            overlay: {
-              height: "auto",
-            },
-          }}
+          styles={{ overlay: { height: "auto" } }}
         >
           <div className="modal__question">
             <h1>{post?.questionName}</h1>
             <p>
-              asked by <span className="name">{user?.email}</span> on{" "}
-              {"time"}
+              asked by <span className="name">{user?.email}</span> on time
               <span className="name">
                 {new Date(post?.createdAt).toLocaleString()}
               </span>
@@ -158,15 +160,13 @@ function Post({ post, setPosts }) {
         </Modal>
         {post.questionUrl !== "" && <img src={post.questionUrl} alt="url" />}
       </div>
-
       <div className="post__footer">
         <div className="post__footerAction">
-          <span onClick={handleUpvote}>
+          <span onClick={() => handleVote("upvote")}>
             <ArrowUpwardOutlined /> {post?.upvotes}
           </span>
-          <span onClick={handleDownvote}>
-            <ArrowDownwardOutlined />
-            {post?.downvotes}
+          <span onClick={() => handleVote("downvote")}>
+            <ArrowDownwardOutlined /> {post?.downvotes}
           </span>
         </div>
         <RepeatOneOutlined />
@@ -188,6 +188,7 @@ function Post({ post, setPosts }) {
         {post?.allAnswers.length}
       </p>
 
+      {/* all answers for the questions */}
       <div className="post_answer">
         <div
           style={{
@@ -199,6 +200,7 @@ function Post({ post, setPosts }) {
           }}
           className="post-answer-container"
         >
+
           {post?.allAnswers?.map((ans) => (
             <div
               key={ans._id}
@@ -223,12 +225,7 @@ function Post({ post, setPosts }) {
                 className="post-answered"
               >
                 <Avatar src={ans?.user?.photo} />
-                <div
-                  style={{
-                    margin: "0px 10px",
-                  }}
-                  className="post-info"
-                >
+                <div style={{ margin: "0px 10px" }} className="post-info">
                   <p>{ans?.user?.userName}</p>
                   <span>
                     <LastSeen date={ans?.createdAt} />
@@ -239,6 +236,8 @@ function Post({ post, setPosts }) {
             </div>
           ))}
         </div>
+
+
       </div>
     </div>
   );

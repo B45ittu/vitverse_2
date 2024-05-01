@@ -13,9 +13,11 @@
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
     "axios": "^1.6.8",
+    "bad-words": "^3.0.4",
     "firebase": "^10.11.0",
     "html-react-parser": "^5.1.10",
     "javascript-time-ago": "^2.5.9",
+    "nspell": "^2.1.5",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-quill": "^2.0.0",
@@ -24,6 +26,7 @@
     "react-router-dom": "^6.23.0",
     "react-scripts": "5.0.1",
     "react-time-ago": "^7.3.1",
+    "typo-js": "^1.2.4",
     "web-vitals": "^2.1.4"
   },
   "scripts": {

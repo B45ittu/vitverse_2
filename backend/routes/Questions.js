@@ -89,7 +89,7 @@ router.post("/", async (req, res) => {
   }
 });
 
-// Route to get all questions
+// Route to get all questions with answers....
 router.get("/", async (req, res) => {
   try {
     const questions = await questionDB.aggregate([
