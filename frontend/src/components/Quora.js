@@ -15,7 +15,6 @@ function Quora() {
                     <Feed/>
                     <Widgets/>
                 </div>
-           
             </div>
         </div>
     )
