@@ -1,0 +1,23 @@
+.compiler-container {
+    display: flex;
+    flex-direction: row;
+  }
+  
+  .editor {
+    flex: 1;
+  }
+  
+  .output {
+    flex: 1;
+    margin-left: 10px;
+  }
+  
+  .LiveEditor {
+    border: 1px solid #ccc;
+    padding: 10px;
+  }
+  
+  .LiveError {
+    color: red;
+  }
+  

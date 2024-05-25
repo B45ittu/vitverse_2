@@ -1,21 +1,39 @@
-import React, { useEffect,useState } from "react";
+import React, { useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import "./App.css";
 import Login from "./authentication/login";
 import Quora from "./components/Quora";
-import LeaderboardPage from "./components/Leaderboard"; // Import the LeaderboardPage component
+import LeaderboardPage from "./components/Leaderboard";
 import { login, selectUser } from "./features/userSlice";
-import { auth } from "./firebase";
+import { auth, db } from "./firebase";
 import { onAuthStateChanged } from "firebase/auth";
-import QuoraHeader from "./components/QuoraHeader"; // Import the QuoraHeader component
+import { setDoc, doc } from "firebase/firestore";
+import QuoraHeader from "./components/QuoraHeader";
+import Compiler from "./components/Compiler";
+import PeoplePage from './components/PeoplePage';
+
+// Save user information to Firestore
+const saveUserToFirestore = async (user) => {
+  try {
+    await setDoc(doc(db, "users", user.uid), {
+      uid: user.uid,
+      displayName: user.displayName,
+      email: user.email,
+      photoURL: user.photoURL
+    });
+    console.log(`User ${user.uid} added to Firestore`);
+  } catch (error) {
+    console.error("Error adding user to Firestore: ", error);
+  }
+};
 
 function App() {
   const user = useSelector(selectUser);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    onAuthStateChanged(auth, (authUser) => {
+    const unsubscribe = onAuthStateChanged(auth, (authUser) => {
       if (authUser) {
         dispatch(
           login({
@@ -25,23 +43,30 @@ function App() {
             uid: authUser.uid,
           })
         );
+        saveUserToFirestore(authUser); // Save user to Firestore
         console.log("AuthUser", authUser);
       }
     });
+
+    return unsubscribe;
   }, [dispatch]);
 
   return (
     <Router>
       <div className="App">
-      <QuoraHeader/> 
+        {user && <QuoraHeader />}
         <Routes>
-     
-          <Route path="/" element={user ? <Quora /> : <Login />} />
+          <Route
+            path="/"
+            element={user ? <Quora /> : <Login />}
+          />
           <Route path="/leaderboard" element={<LeaderboardPage />} />
-          {/* Define other routes */}
+          <Route path="/Compiler" element={<Compiler />} />
+          <Route path="/people" element={<PeoplePage />} />
         </Routes>
       </div>
     </Router>
   );
 }
+
 export default App;

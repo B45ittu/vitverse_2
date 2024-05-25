@@ -4,12 +4,29 @@ import Sidebar from './sidebar'
 import Feed from './Feed'
 import Widgets from'./widgets'
 import './Quora.css'
+import { useEffect } from 'react'
 
 function Quora() {
+
+    useEffect(() => {
+        const handleScroll = () => {
+          const scrollTop = window.scrollY;
+          const maxScroll = document.body.clientHeight - window.innerHeight;
+          const scrollFraction = scrollTop / maxScroll;
+          const hue = (scrollFraction * 360) % 360;
+          const backgroundColor = `hsl(${hue}, 100%, 98%)`; 
+              document.documentElement.style.setProperty("--scroll-view-background", backgroundColor);
+        };
+    
+        window.addEventListener("scroll", handleScroll);
+        return () => window.removeEventListener("scroll", handleScroll);
+      }, []);
+
+
     return (
         <div className='quora'>
             
-            <div className='quora__contents'>
+            <div className='quora__contents' style={{ background: "var(--scroll-view-background)" }}>
                 <div className='quora__content'>
                     <Sidebar />
                     <Feed/>

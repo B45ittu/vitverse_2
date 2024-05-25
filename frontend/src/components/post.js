@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Avatar, Button } from "@mui/material";
 import {
   ArrowDownwardOutlined,
@@ -37,6 +37,12 @@ function Post({ post, setPosts }) {
   const Close = <CloseIcon />;
   const user = useSelector(selectUser);
 
+  useEffect(() => {
+    const votedPosts = JSON.parse(localStorage.getItem("votedPosts")) || [];
+    setHasUpvoted(votedPosts.includes(`${post?._id}-upvote`));
+    setHasDownvoted(votedPosts.includes(`${post?._id}-downvote`));
+  }, [post?._id]);
+
   const handleQuill = (value) => {
     setAnswer(value);
   };
@@ -57,6 +63,8 @@ function Post({ post, setPosts }) {
             prevPost._id === post._id ? updatedPost : prevPost
           )
         );
+        const votedPosts = JSON.parse(localStorage.getItem("votedPosts")) || [];
+        localStorage.setItem("votedPosts", JSON.stringify([...votedPosts, `${post?._id}-${type}`]));
         await axios.post(`/api/questions/${type}/${post?._id}`);
         setHasUpvoted(type === "upvote");
         setHasDownvoted(type === "downvote");
@@ -78,6 +86,8 @@ function Post({ post, setPosts }) {
             prevPost._id === post._id ? updatedPost : prevPost
           )
         );
+        const votedPosts = JSON.parse(localStorage.getItem("votedPosts")) || [];
+        localStorage.setItem("votedPosts", JSON.stringify(votedPosts.filter(id => id !== `${post?._id}-${type}`)));
         await axios.post(`/api/questions/${type}/${post?._id}`);
         setHasUpvoted(type === "upvote");
         setHasDownvoted(type === "downvote");
@@ -108,7 +118,6 @@ function Post({ post, setPosts }) {
       }
     }
   };
-  
 
   return (
     <div className="post">
@@ -236,8 +245,6 @@ function Post({ post, setPosts }) {
             </div>
           ))}
         </div>
-
-
       </div>
     </div>
   );

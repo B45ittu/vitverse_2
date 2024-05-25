@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from "react";
+import React, { useState } from "react";
 import CottageIcon from "@mui/icons-material/Cottage";
 import "./QuoraHeader.css";
 import {
@@ -7,8 +7,7 @@ import {
   NotificationsOutlined,
   PeopleAltOutlined,
   Search,
-} 
-from "@mui/icons-material";
+} from "@mui/icons-material";
 import { FeaturedPlayList } from "@mui/icons-material";
 import { Avatar, Button, Input } from "@mui/material";
 import Modal from "react-responsive-modal";
@@ -23,6 +22,7 @@ import { logout, selectUser } from "../features/userSlice";
 import { useNavigate } from "react-router-dom";
 import { setSearchText, selectSearchText } from "../features/searchSlice";
 import { detectOffensiveLanguage } from "../algorithms/sensitivity";
+
 function QuoraHeader() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [inputUrl, setInputUrl] = useState("");
@@ -68,7 +68,6 @@ function QuoraHeader() {
     }
   };
 
-
   const loggingOut = () => {
     if (window.confirm("Are you sure you want to logout?")) {
       signOut(auth)
@@ -90,6 +89,10 @@ function QuoraHeader() {
     navigate("/");
   };
 
+  const goToPeople = () => {
+    navigate("/people");
+  };
+
   return (
     <div className="header">
       <div className="header-content">
@@ -102,21 +105,27 @@ function QuoraHeader() {
         <div className="header-icons">
           <div className="header-icon" onClick={goToHome}>
             <CottageIcon />
+            <span className="icon-name">Home</span>
           </div>
           <div className="header-icon">
             <FeaturedPlayList />
+            <span className="icon-name">Playlists</span>
           </div>
           <div className="header-icon">
             <AssignmentTurnedInOutlined />
+            <span className="icon-name">Assignments</span>
           </div>
-          <div className="header-icon">
+          <div className="header-icon" onClick={goToPeople}>
             <PeopleAltOutlined />
+            <span className="icon-name">People</span>
           </div>
           <div className="header-icon">
             <NotificationsOutlined />
+            <span className="icon-name">Notifications</span>
           </div>
           <div className="header-icon" onClick={goToLeaderboard}>
             <CodeIcon />
+            <span className="icon-name">Leaderboard</span>
           </div>
         </div>
         <div className="header-input">

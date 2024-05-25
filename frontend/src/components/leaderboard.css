@@ -1,52 +1,59 @@
 .leaderboard-container {
-    max-width: 600px;
-    margin: 20px auto; 
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 0 20px rgba(255, 0, 0, 0.5); 
-    background-color: #ffcccc; 
-  }
-  
-  
-  
-  .leaderboard-header {
-    text-align: center;
-    margin-bottom: 20px;
-    font-size: 28px;
-    color: #333;
-  }
-  
-  .leaderboard-list {
-    list-style: none;
-    padding: 0;
-  }
-  
-  .leaderboard-item {
-    padding: 15px;
-    border-radius: 8px;
-    margin-bottom: 10px;
-    background-color: #fff;
-    color: #333;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-  }
-  
-  .leaderboard-item:nth-child(1) {
-    background-color: #ffd700; 
-  }
-  
-  .leaderboard-item:nth-child(2) {
-    background-color: #c0c0c0; 
-  }
-  
-  .leaderboard-item:nth-child(3) {
-    background-color: #cd7f32; 
-  }
-  
-  .leaderboard-item:hover {
-    transform: scale(1.05); 
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
-  }
-.index{
-    font-weight: bolder;
+  max-width: 600px;
+  margin: 20px auto; 
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 20px rgba(255, 0, 0, 0.5); 
+  background-color: #ffcccc; 
+  text-align: center; /* Center align the content */
+}
+
+.code-icon-container {
+  text-align: left; /* Left align the code icon */
+}
+
+.code-icon {
+  font-size: 24px;
+}
+
+.leaderboard-header {
+  margin-bottom: 20px;
+  font-size: 28px;
+  color: #333;
+}
+
+.leaderboard-list {
+  list-style: none;
+  padding: 0;
+}
+
+.leaderboard-item {
+  padding: 15px;
+  border-radius: 8px;
+  margin-bottom: 10px;
+  background-color: #fff;
+  color: #333;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.leaderboard-item:nth-child(1) {
+  background-color: #ffd700; 
+}
+
+.leaderboard-item:nth-child(2) {
+  background-color: #c0c0c0; 
+}
+
+.leaderboard-item:nth-child(3) {
+  background-color: #cd7f32; 
+}
+
+.leaderboard-item:hover {
+  transform: scale(1.05); 
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+}
+
+.index {
+  font-weight: bolder;
 }

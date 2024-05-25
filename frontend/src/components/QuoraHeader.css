@@ -205,7 +205,7 @@
     color: red;
   }
   
-  .modal__buttons > .add {
+.modal__buttons > .add {
     border: none;
     outline: none;
     margin-top: 10px;
@@ -216,14 +216,14 @@
     border-radius: 33px;
     cursor: pointer;
     width: 50%;
-  }
+}
   
-  .modal__buttons > .add:hover {
+.modal__buttons > .add:hover {
     background-color: #eee;
     color: #222;
-  }
+}
   
-  @media only screen and (max-width: 600px) {
+@media only screen and (max-width: 600px) {
     .qHeader__icons {
       display: none;
     }
@@ -231,4 +231,59 @@
     .qHeader__input {
       display: none;
     }
-  }
+}
+
+
+  /* Add this CSS to your QuoraHeader.css file */
+
+.header-icons {
+  display: flex;
+}
+
+.header-icon {
+  margin-right: 20px;
+  position: relative;
+}
+
+.header-icon:hover .icon-name {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.icon-name {
+  position: absolute;
+  bottom: -25px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: rgba(0, 0, 0, 0.8);
+  color: white;
+  padding: 5px 10px;
+  border-radius: 5px;
+  opacity: 0;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+/* Adjust any other styles as needed */
+
+.header-input {
+  display: flex;
+  align-items: center;
+  margin-left: auto;
+}
+
+.header-input input {
+  padding: 8px 12px;
+  border: none;
+  border-radius: 20px;
+  margin-left: 10px;
+  outline: none;
+}
+
+.header_rem {
+  display: flex;
+  align-items: center;
+}
+
+.header_rem > * {
+  margin-left: 10px;
+}
