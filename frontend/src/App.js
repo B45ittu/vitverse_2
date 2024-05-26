@@ -12,6 +12,7 @@ import { setDoc, doc } from "firebase/firestore";
 import QuoraHeader from "./components/QuoraHeader";
 import Compiler from "./components/Compiler";
 import PeoplePage from './components/PeoplePage';
+import Todo from "./components/Todo";
 
 // Save user information to Firestore
 const saveUserToFirestore = async (user) => {
@@ -63,6 +64,7 @@ function App() {
           <Route path="/leaderboard" element={<LeaderboardPage />} />
           <Route path="/Compiler" element={<Compiler />} />
           <Route path="/people" element={<PeoplePage />} />
+          <Route path="/Todo" element={<Todo />} />
         </Routes>
       </div>
     </Router>

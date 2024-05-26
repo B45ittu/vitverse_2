@@ -47,14 +47,6 @@ function Login() {
     }
   };
 
-  const handleLogout = async () => {
-    try {
-      await signOut(auth);
-      console.log("User logged out");
-    } catch (error) {
-      console.error("Logout error:", error.message);
-    }
-  };
 
   const isValidEmail = (email) => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;

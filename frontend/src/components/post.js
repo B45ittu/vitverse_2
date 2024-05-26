@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Avatar, Button } from "@mui/material";
+import { Avatar, Button, Tooltip } from "@mui/material";
 import {
   ArrowDownwardOutlined,
   ArrowUpwardOutlined,
@@ -97,6 +97,22 @@ function Post({ post, setPosts }) {
     }
   };
 
+  const handleShare = () => {
+    if (navigator.share) {
+      navigator.share({
+        title: post.questionName,
+        text: `Check out this question: ${post.questionName}`,
+        url: window.location.href,
+      }).then(() => {
+        console.log('Thanks for sharing!');
+      }).catch((error) => {
+        console.error('Error sharing:', error);
+      });
+    } else {
+      alert('Web Share API is not supported in your browser.');
+    }
+  };
+
   const handleSubmit = async () => {
     if (post?._id && answers !== "") {
       // Check for offensive language
@@ -119,18 +135,26 @@ function Post({ post, setPosts }) {
     }
   };
 
+  const handleAddAnswerClick = () => {
+    if (post.user._id === user._id) {
+      alert("You cannot answer your own question.");
+      return;
+    }
+    setIsModalOpen(true);
+  };
+
   return (
     <div className="post">
       <div className="post_info">
-        <Avatar src={user?.photo}/>
-        <h4>{user?.userName}</h4>
+        <Avatar src={post?.user?.photo}/>
+        <h4>{post?.user?.userName}</h4>
         <small>
           <LastSeen date={post?.createdAt} />
         </small>
       </div>
       <div className="post_body">
         <h3>{post?.questionName}</h3>
-        <Button className="post_btnAnswer" onClick={() => setIsModalOpen(true)}>
+        <Button className="post_btnAnswer" onClick={handleAddAnswerClick}>
           Add answer
         </Button>
         <Modal
@@ -171,18 +195,30 @@ function Post({ post, setPosts }) {
       </div>
       <div className="post__footer">
         <div className="post__footerAction">
-          <span onClick={() => handleVote("upvote")}>
-            <ArrowUpwardOutlined /> {post?.upvotes}
-          </span>
-          <span onClick={() => handleVote("downvote")}>
-            <ArrowDownwardOutlined /> {post?.downvotes}
-          </span>
+          <Tooltip title="Upvote" arrow>
+            <span onClick={() => handleVote("upvote")}>
+              <ArrowUpwardOutlined /> {post?.upvotes}
+            </span>
+          </Tooltip>
+          <Tooltip title="Downvote" arrow>
+            <span onClick={() => handleVote("downvote")}>
+              <ArrowDownwardOutlined /> {post?.downvotes}
+            </span>
+          </Tooltip>
         </div>
-        <RepeatOneOutlined />
-        <ChatBubbleOutlined />
+        <Tooltip title="Repeat" arrow>
+          <RepeatOneOutlined />
+        </Tooltip>
+        <Tooltip title="Comment" arrow>
+          <ChatBubbleOutlined />
+        </Tooltip>
         <div className="post__footerRight">
-          <ShareOutlined />
-          <MoreHorizOutlined />
+          <Tooltip title="Share" arrow>
+            <ShareOutlined onClick={handleShare} />
+          </Tooltip>
+          <Tooltip title="More" arrow>
+            <MoreHorizOutlined />
+          </Tooltip>
         </div>
       </div>
       <p
