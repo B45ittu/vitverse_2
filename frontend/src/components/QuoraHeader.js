@@ -169,7 +169,7 @@ function QuoraHeader() {
             </div>
 
             <div className="modal__info">
-              <Avatar className="avatar" />
+              <Avatar className="avatar" src={user?.photo}/>
               <div className="modal__scope">
                 <PeopleAltOutlined />
                 <p>Public</p>
