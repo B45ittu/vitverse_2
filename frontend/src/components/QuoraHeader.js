@@ -96,9 +96,9 @@ function QuoraHeader() {
     navigate("/profilePage");
   };
 
-  // const gotoTodo=()=>{
-  //   navigate("/Todo");
-  // };
+  const gotoTodo=()=>{
+    navigate("/Todo");
+  };
 
   return (
     <div className="header">
