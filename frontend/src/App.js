@@ -13,7 +13,7 @@ import QuoraHeader from "./components/QuoraHeader";
 import Compiler from "./components/Compiler";
 import PeoplePage from './components/PeoplePage';
 import Todo from "./components/Todo";
-import Profile from './components/Profile';
+import ProfilePage from "./components/ProfilePage";
 
 
 // Save user information to Firestore
@@ -64,10 +64,12 @@ function App() {
             element={user ? <Quora /> : <Login />}
           />
           <Route path="/leaderboard" element={<LeaderboardPage />} />
-          <Route path="/profile/:userId" component={Profile} />
+          {/* <Route path="/profile/:userId" component={Profile} /> */}
           <Route path="/Compiler" element={<Compiler />} />
           <Route path="/people" element={<PeoplePage />} />
           <Route path="/Todo" element={<Todo />} />
+          {/* <Route path="/profilePage" element={<Profile/>}/> */}
+          <Route path="/profile" element={<ProfilePage />} />
         </Routes>
       </div>
     </Router>

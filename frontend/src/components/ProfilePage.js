@@ -1,8 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from "react";
 import fetchUsers from '../fetchUsers';
-import './peoplePage.css';
 import axios from "axios";
-const PeoplePage = () => {
+// import "./profile.css"
+import "./peoplePage.css"
+
+const ProfilePage = () => {
   const [users, setUsers] = useState([]);
   // const [leetCodeNames, setLeetCodeNames] = useState([]);
 
@@ -102,4 +104,4 @@ const PeoplePage = () => {
   );
 };
 
-export default PeoplePage;
+export default ProfilePage;
