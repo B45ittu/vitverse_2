@@ -93,6 +93,10 @@ function QuoraHeader() {
     navigate("/people");
   };
 
+  const gotoTodo=()=>{
+    navigate("/Todo");
+  };
+
   return (
     <div className="header">
       <div className="header-content">
@@ -111,7 +115,7 @@ function QuoraHeader() {
             <FeaturedPlayList />
             <span className="icon-name">Playlists</span>
           </div>
-          <div className="header-icon">
+          <div className="header-icon" onClick={gotoTodo}>
             <AssignmentTurnedInOutlined />
             <span className="icon-name">Assignments</span>
           </div>
