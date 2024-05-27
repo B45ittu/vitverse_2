@@ -92,6 +92,9 @@ function QuoraHeader() {
   const goToPeople = () => {
     navigate("/people");
   };
+  const goToProfile = () => {
+    navigate("/profilePage");
+  };
 
   // const gotoTodo=()=>{
   //   navigate("/Todo");
@@ -144,7 +147,7 @@ function QuoraHeader() {
 
         <div className="header_rem">
           {/* <span onClick={loggingOut}> */}
-          <span onClick={goToPeople}>
+          <span onClick={goToProfile}>
             <Avatar src={user?.photo} />
           </span>
           <div>
