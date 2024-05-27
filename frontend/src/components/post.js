@@ -206,19 +206,19 @@ function Post({ post, setPosts }) {
             </span>
           </Tooltip>
         </div>
-        <Tooltip title="Repeat" arrow>
+        {/* <Tooltip title="Repeat" arrow>
           <RepeatOneOutlined />
         </Tooltip>
         <Tooltip title="Comment" arrow>
           <ChatBubbleOutlined />
-        </Tooltip>
+        </Tooltip> */}
         <div className="post__footerRight">
           <Tooltip title="Share" arrow>
             <ShareOutlined onClick={handleShare} />
           </Tooltip>
-          <Tooltip title="More" arrow>
+          {/* <Tooltip title="More" arrow>
             <MoreHorizOutlined />
-          </Tooltip>
+          </Tooltip> */}
         </div>
       </div>
       <p

@@ -8,7 +8,7 @@ import {
   PeopleAltOutlined,
   Search,
 } from "@mui/icons-material";
-import { FeaturedPlayList } from "@mui/icons-material";
+//import { FeaturedPlayList } from "@mui/icons-material";
 import { Avatar, Button, Input } from "@mui/material";
 import Modal from "react-responsive-modal";
 import CloseIcon from "@mui/icons-material/Close";
@@ -93,7 +93,7 @@ function QuoraHeader() {
     navigate("/people");
   };
   const goToProfile = () => {
-    navigate("/profilePage");
+    navigate("/people");
   };
 
   const gotoTodo=()=>{

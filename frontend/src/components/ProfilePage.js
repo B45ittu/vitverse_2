@@ -1,8 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from "react";
 import fetchUsers from '../fetchUsers';
-import './peoplePage.css';
 import axios from "axios";
-const PeoplePage = () => {
+// import "./profile.css"
+import "./peoplePage.css"
+
+const ProfilePage = () => {
   const [users, setUsers] = useState([]);
   // const [leetCodeNames, setLeetCodeNames] = useState([]);
 
@@ -53,7 +55,7 @@ const PeoplePage = () => {
 
   return (
     <div className="people-container">
-      <h1 className="people-title">Your profile</h1>
+      <h1 className="people-title">People</h1>
       <ul className="people-list">
         {users.map((user, index) => (
           <li key={index}>
@@ -68,11 +70,10 @@ const PeoplePage = () => {
       </ul>
       {/* Button to fetch and send LeetCode names to backend */}
 
-      <h1>Search</h1>
-      <div className='Search'>
+      <h1>Profile</h1>
       <form onSubmit={handleSearchSubmit}>
         <div>
-          <label htmlFor="searchQuery">Leetcode ID: </label>
+          <label htmlFor="searchQuery">Search by Leetcode ID:</label>
           <input
             type="text"
             id="searchQuery"
@@ -99,9 +100,8 @@ const PeoplePage = () => {
       ) : (
         <p>No users found</p>
       )}
-      </div>
     </div>
   );
 };
 
-export default PeoplePage;
+export default ProfilePage;
