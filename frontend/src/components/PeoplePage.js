@@ -68,10 +68,11 @@ const PeoplePage = () => {
       </ul>
       {/* Button to fetch and send LeetCode names to backend */}
 
-      <h1>Profile</h1>
+      <h1>Search</h1>
+      <div className='Search'>
       <form onSubmit={handleSearchSubmit}>
         <div>
-          <label htmlFor="searchQuery">Search by Leetcode ID:</label>
+          <label htmlFor="searchQuery">Leetcode ID: </label>
           <input
             type="text"
             id="searchQuery"
@@ -98,6 +99,7 @@ const PeoplePage = () => {
       ) : (
         <p>No users found</p>
       )}
+      </div>
     </div>
   );
 };
