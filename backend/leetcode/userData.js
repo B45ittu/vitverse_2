@@ -1,6 +1,5 @@
 // const fetch = require('node-fetch');
 async function getAllUsernames() {
-
   return ["Preeti_Desai07","gayatri_d12","Prasanna_Fuse","ayushdongardive","snehal_elkiwar"];
 }
        

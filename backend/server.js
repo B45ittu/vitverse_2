@@ -23,9 +23,6 @@ app.use("/api", router);
 app.use("/api/leaderboard", leaderboardRouter);
 app.use('/api/leetcode', router); // Mount the LeetCode router
 
-
-
-
 // Serve the frontend build
 app.use("/uploads", express.static(path.join(__dirname, "/../uploads")));
 app.use(express.static(path.join(__dirname, "/../frontend/build")));

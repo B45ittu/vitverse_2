@@ -125,11 +125,13 @@
     align-items: center;
     margin-bottom: 5px;
     border-bottom: 1px solid rgba(187, 187, 187, 0.5);
-    background-color: #274C77;
+    background-color: #dfe6ee;
+    width: 100%;
+    
   }
   
   .modal__title > h5 {
-    color: rgb(255, 254, 254);
+    color: rgb(232, 143, 143);
     font-size: 20px;
     cursor: pointer;
     font-weight: 500;
