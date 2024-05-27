@@ -2,7 +2,7 @@
 
 const express = require('express');
 const router = express.Router();
-const { fetchLeaderboardData, addLeetCodeName } = require('../leetcode/userData');
+const { fetchLeaderboardData } = require('../leetcode/userData');
 
 // Route to fetch leaderboard data
 router.get('/', async (req, res) => {
@@ -14,7 +14,4 @@ router.get('/', async (req, res) => {
     res.status(500).json({ error: 'Internal server error' });
   }
 });
-
-
-
 module.exports = router;

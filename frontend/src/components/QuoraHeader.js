@@ -93,7 +93,7 @@ function QuoraHeader() {
     navigate("/people");
   };
   const goToProfile = () => {
-    navigate("/people");
+    navigate("/PeoplePage");
   };
 
   const gotoTodo=()=>{

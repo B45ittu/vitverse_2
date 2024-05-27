@@ -2,10 +2,13 @@ import React, { useEffect, useState } from 'react';
 import fetchUsers from '../fetchUsers';
 import './peoplePage.css';
 import axios from "axios";
+
 const PeoplePage = () => {
   const [users, setUsers] = useState([]);
-  // const [leetCodeNames, setLeetCodeNames] = useState([]);
-
+  const [leetCodeName, setLeetCodeName] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
+  const [userData, setUserData] = useState(null);
   useEffect(() => {
     const getUsers = async () => {
       const usersList = await fetchUsers();
@@ -15,41 +18,25 @@ const PeoplePage = () => {
     getUsers();
   }, []);
 
-  const [searchQuery, setSearchQuery] = useState("");
-  const [searchResults, setSearchResults] = useState([]);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState("");
-
-  const handleSearchChange = (e) => {
-    setSearchQuery(e.target.value);
+  const handleLeetCodeNameChange = (e) => {
+    setLeetCodeName(e.target.value);
   };
 
-  const handleSearchSubmit = async (e) => {
-    e.preventDefault();
+  const handleLeetCodeNameSubmit = async () => {
     setLoading(true);
     setError("");
     try {
-      const response = await axios.get(`/api/user/search/${searchQuery}`);
-      setSearchResults(response.data);
+      const response = await axios.post('/api/leetcode', { leetCodeName });
+      console.log("LeetCode name submitted:", leetCodeName);
+      setUserData(response.data);
     } catch (error) {
-      console.error("Error searching for users:", error);
-      setError("Error searching for users. Please try again.");
+      console.error("Error submitting LeetCode name:", error);
+      setError("Error submitting LeetCode name. Please try again.");
     }
     setLoading(false);
   };
-
-  const handleConnect = async (userId) => {
-    setLoading(true);
-    setError("");
-    try {
-      // Implement your connect logic here, using the userId
-      console.log("Connecting to user:", userId);
-    } catch (error) {
-      console.error("Error connecting to user:", error);
-      setError("Error connecting to user. Please try again.");
-    }
-    setLoading(false);
-  };
+  
+  
 
   return (
     <div className="people-container">
@@ -61,44 +48,23 @@ const PeoplePage = () => {
             <div>
               <p className="name">{user.displayName}</p>
               <p>{user.email}</p>
-             
             </div>
           </li>
         ))}
       </ul>
-      {/* Button to fetch and send LeetCode names to backend */}
 
-      <h1>Search</h1>
-      <div className='Search'>
-      <form onSubmit={handleSearchSubmit}>
-        <div>
-          <label htmlFor="searchQuery">Leetcode ID: </label>
-          <input
-            type="text"
-            id="searchQuery"
-            value={searchQuery}
-            onChange={handleSearchChange}
-          />
-          <button type="submit" disabled={loading}>
-            {loading ? "Searching..." : "Search"}
-          </button>
-        </div>
-      </form>
-      {error && <p>{error}</p>}
-      {searchResults.length > 0 ? (
-        <ul>
-          {searchResults.map((user) => (
-            <li key={user.id}>
-              <div>{user.username}</div>
-              <button onClick={() => handleConnect(user.id)} disabled={loading}>
-                {loading ? "Connecting..." : "Connect"}
-              </button>
-            </li>
-          ))}
-        </ul>
-      ) : (
-        <p>No users found</p>
-      )}
+      <div className="leetcode-input">
+        <h2>Enter LeetCode Name</h2>
+        <input
+          type="text"
+          value={leetCodeName}
+          onChange={handleLeetCodeNameChange}
+          placeholder="Enter LeetCode Name"
+        />
+        <button onClick={handleLeetCodeNameSubmit} disabled={loading}>
+          {loading ? "Submitting..." : "Submit"}
+        </button>
+        {error && <p>{error}</p>}
       </div>
     </div>
   );
