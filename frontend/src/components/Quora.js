@@ -30,7 +30,7 @@ function Quora() {
                 <div className='quora__content'>
                     <Sidebar />
                     <Feed/>
-                    {/* <Widgets/> */}
+                    <Widgets/>
                 </div>
             </div>
         </div>

@@ -64,7 +64,6 @@ function App() {
             element={user ? <Quora /> : <Login />}
           />
           <Route path="/leaderboard" element={<LeaderboardPage />} />
-          <Route path="/profile/:userId" component={Profile} />
           <Route path="/Compiler" element={<Compiler />} />
           <Route path="/profilePage" element={<Profile />} />
           <Route path="/Todo" element={<Todo />} />

@@ -1,53 +1,56 @@
-/* src/components/profile.css */
-
 .profile-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
   padding: 20px;
-  background-color: #E7ECEF;
-  min-height: 100vh;
 }
 
 .profile-title {
-  font-size: 2rem;
+  font-size: 24px;
   margin-bottom: 20px;
-  color: #333;
 }
 
-.profile-card {
+.user-info {
   display: flex;
-  flex-direction: column;
   align-items: center;
-  background-color: #fff;
-  padding: 20px;
   margin-bottom: 20px;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  transition: transform 0.2s;
 }
 
-.profile-card:hover {
-  transform: scale(1.02);
-}
-
-.profile-image {
+.user-photo {
   border-radius: 50%;
-  width: 100px;
-  height: 100px;
-  margin-bottom: 15px;
+  margin-right: 20px;
+  width: 60px;
+  height: 60px;
 }
 
-.profile-info {
-  text-align: center;
-}
-
-.profile-info .name {
+.name {
   font-weight: bold;
-  color: #333;
 }
 
-.user-stats {
-  margin-top: 10px;
-  color: #555;
+.questions-container,
+.answers-container {
+  margin-top: 20px;
+}
+
+.questions-container h2,
+.answers-container h2 {
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+
+.questions-container ul,
+.answers-container ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.questions-container li,
+.answers-container li {
+  margin-bottom: 10px;
+}
+
+.questions-container a {
+  color: #3f51b5;
+  text-decoration: none;
+}
+
+.questions-container a:hover {
+  text-decoration: underline;
 }

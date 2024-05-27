@@ -169,7 +169,7 @@ function Post({ post, setPosts }) {
           <div className="modal__question">
             <h1>{post?.questionName}</h1>
             <p>
-              asked by <span className="name">{user?.email}</span> on time
+              asked by <span className="name">{post?.user?.email}</span> on time
               <span className="name">
                 {new Date(post?.createdAt).toLocaleString()}
               </span>

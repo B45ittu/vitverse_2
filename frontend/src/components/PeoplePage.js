@@ -17,7 +17,7 @@ const PeoplePage = () => {
 
   return (
     <div className="people-container">
-      <h1 className="people-title">People</h1>
+      <h1 className="people-title">Your profile</h1>
       <ul className="people-list">
         {users.map((user, index) => (
           <li key={index}>
