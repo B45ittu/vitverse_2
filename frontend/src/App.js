@@ -64,9 +64,12 @@ function App() {
             element={user ? <Quora /> : <Login />}
           />
           <Route path="/leaderboard" element={<LeaderboardPage />} />
+<<<<<<< HEAD
+=======
           {/* <Route path="/profile/:userId" component={Profile} /> */}
+>>>>>>> 81556cbaaf04de6ffa470206dc1f39f179e521e9
           <Route path="/Compiler" element={<Compiler />} />
-          <Route path="/people" element={<PeoplePage />} />
+          <Route path="/profilePage" element={<Profile />} />
           <Route path="/Todo" element={<Todo />} />
           {/* <Route path="/profilePage" element={<Profile/>}/> */}
           <Route path="/profile" element={<ProfilePage />} />
