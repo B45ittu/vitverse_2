@@ -11,8 +11,8 @@
   margin: 20px auto; 
   padding: 20px;
   border-radius: 8px;
-  box-shadow: 0 0 20px rgba(255, 0, 0, 0.5); 
-  background-color: #ffcccc; 
+  box-shadow: 0 0 20px #274c777a;; 
+  background-color: #eee; 
   text-align: center; /* Center align the content */
 }
 
