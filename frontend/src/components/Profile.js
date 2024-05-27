@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import fetchUsers from '../fetchUsers'; // Adjusted path to fetchUsers.js
+import fetchUsers from '..fetchUsers'; // Adjusted path to fetchUsers.js
 import './profile.css'; // Ensure this path matches your file name
 
 const Profile = ({ match }) => {
