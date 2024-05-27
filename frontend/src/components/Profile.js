@@ -30,8 +30,6 @@ const PeoplePage = () => {
           </li>
         ))}
       </ul>
-      {/* Button to fetch and send LeetCode names to backend */}
-    
     </div>
   );
 };
