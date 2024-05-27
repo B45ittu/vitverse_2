@@ -1,3 +1,11 @@
+.leaderbd{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  background-color: #E7ECEF;
+  min-height: 100vh;
+}
 .leaderboard-container {
   max-width: 600px;
   margin: 20px auto; 

@@ -111,13 +111,13 @@ function QuoraHeader() {
             <CottageIcon />
             <span className="icon-name">Home</span>
           </div>
-          <div className="header-icon">
+          {/* <div className="header-icon">
             <FeaturedPlayList />
             <span className="icon-name">Playlists</span>
-          </div>
-          <div className="header-icon" onClick={gotoTodo}>
+          </div> */}
+          <div className="header-icon">
             <AssignmentTurnedInOutlined />
-            <span className="icon-name">Assignments</span>
+            <span className="icon-name">Code</span>
           </div>
           <div className="header-icon" onClick={goToPeople}>
             <PeopleAltOutlined />
