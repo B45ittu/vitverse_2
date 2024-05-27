@@ -28,6 +28,7 @@ const Leaderboard = () => {
   };
 
   return (
+    <div className="leaderbd">
     <div className="leaderboard-container">
       <div className="code-icon-container" onClick={goToCompiler}>
         <CodeIcon className="code-icon" /> 
@@ -44,6 +45,7 @@ const Leaderboard = () => {
           </li>
         ))}
       </ul>
+    </div>
     </div>
   );
 };
