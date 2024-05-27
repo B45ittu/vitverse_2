@@ -39,7 +39,7 @@ export function detectOffensiveLanguage(text) {
         // Check fuzzy match
         for (const badWord of filter.list) {
             if (levenshteinDistance(word.toLowerCase(), badWord.toLowerCase()) <= 1) {
-                return true; // Fuzzy match found within Levenshtein distance of 2
+                return true; // Fuzzy match found within Levenshtein distance of 1
             }
         }
     }
