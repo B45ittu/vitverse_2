@@ -66,7 +66,7 @@ function App() {
           <Route path="/leaderboard" element={<LeaderboardPage />} />
           <Route path="/profile/:userId" component={Profile} />
           <Route path="/Compiler" element={<Compiler />} />
-          <Route path="/people" element={<PeoplePage />} />
+          <Route path="/profilePage" element={<Profile />} />
           <Route path="/Todo" element={<Todo />} />
         </Routes>
       </div>

@@ -1,42 +1,39 @@
 import React, { useEffect, useState } from 'react';
-import fetchUsers from '../fetchUsers'; // Adjusted path to fetchUsers.js
-import './profile.css'; // Ensure this path matches your file name
+import fetchUsers from '../fetchUsers';
+import './peoplePage.css';
 
-const Profile = ({ match }) => {
-  const { userId } = match.params;
-  const [user, setUser] = useState(null);
+const PeoplePage = () => {
+  const [users, setUsers] = useState([]);
+  // const [leetCodeNames, setLeetCodeNames] = useState([]);
 
   useEffect(() => {
-    const getUser = async () => {
-      const users = await fetchUsers();
-      const userData = users.find(user => user.id === userId);
-      setUser(userData);
+    const getUsers = async () => {
+      const usersList = await fetchUsers();
+      setUsers(usersList);
     };
 
-    getUser();
-  }, [userId]);
-
-  if (!user) {
-    return <div>Loading...</div>;
-  }
+    getUsers();
+  }, []);
 
   return (
-    <div className="profile-container">
-      <h1 className="profile-title">Profile</h1>
-      <div className="profile-card">
-        <img src={user.photoURL} alt={user.displayName} className="profile-image" />
-        <div className="profile-info">
-          <p className="name">{user.displayName}</p>
-          <p>{user.email}</p>
-          <div className="user-stats">
-            <p>Followers: {user.followers}</p>
-            <p>Following: {user.following}</p>
-            <p>Questions Asked: {user.questionsAsked}</p>
-          </div>
-        </div>
-      </div>
+    <div className="people-container">
+      <h1 className="people-title">Your Profile</h1>
+      <ul className="people-list">
+        {users.map((user, index) => (
+          <li key={index}>
+            <img src={user.photoURL} alt={user.displayName} />
+            <div>
+              <p className="name">{user.displayName}</p>
+              <p>{user.email}</p>
+             
+            </div>
+          </li>
+        ))}
+      </ul>
+      {/* Button to fetch and send LeetCode names to backend */}
+    
     </div>
   );
 };
 
-export default Profile;
+export default PeoplePage;
