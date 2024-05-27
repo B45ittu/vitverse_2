@@ -36,3 +36,29 @@
     font-weight: 400;
     font-size: 13px;
   }
+
+  .sidebarOptions {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .sidebarOption {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s, box-shadow 0.3s;
+  }
+  
+  .sidebarOption:hover {
+    background-color: #f0f0f0;
+  }
+
+  .selected {
+    background-color: #c0d1e3;
+    color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    transition: background-color 0.3s, box-shadow 0.3s;
+  }
+  
+  

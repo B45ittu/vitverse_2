@@ -115,7 +115,7 @@ function QuoraHeader() {
             <FeaturedPlayList />
             <span className="icon-name">Playlists</span>
           </div> */}
-          <div className="header-icon">
+          <div className="header-icon" onClick={gotoTodo}>
             <AssignmentTurnedInOutlined />
             <span className="icon-name">Code</span>
           </div>
@@ -163,7 +163,7 @@ function QuoraHeader() {
               },
             }}
           >
-            
+
             <div className="modal__title">
               <h5>Add Question</h5>
               <h5>Share link</h5>
