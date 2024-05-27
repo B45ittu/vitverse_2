@@ -1,3 +1,5 @@
+/* peoplePage.css */
+
 .people-container {
   display: flex;
   flex-direction: column;
@@ -6,25 +8,7 @@
   background-color: #E7ECEF;
   min-height: 100vh;
 }
-.Search{
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  width: 100%;
-  max-width: 600px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  background-color: #fff;
-  padding: 20px;
-  margin-bottom: 20px;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  transition: transform 0.2s;
-}
-.Search:hover {
-  transform: scale(1.02);
-}
+
 .people-title {
   font-size: 2rem;
   margin-bottom: 20px;
@@ -71,4 +55,82 @@
 .people-list p.name {
   font-weight: bold;
   color: #333;
+}
+
+.Search {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  width: 100%;
+  max-width: 600px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #fff;
+  padding: 20px;
+  margin-bottom: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s;
+}
+
+.Search:hover {
+  transform: scale(1.02);
+}
+
+.Search label {
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+.Search input {
+  padding: 8px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.Search button {
+  padding: 8px;
+  background-color: #274C77;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.Search button:disabled {
+  background-color: #274C77;
+}
+
+.Search button:hover:not(:disabled) {
+  background-color: #A3CEF1;
+}
+
+.leetcode-data {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin-top: 20px;
+}
+
+.leetcode-data h3 {
+  margin-top: 0;
+}
+
+.leetcode-data ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.leetcode-data ul li {
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+}
+
+.leetcode-data ul li:last-child {
+  border-bottom: none;
 }

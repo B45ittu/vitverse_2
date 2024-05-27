@@ -75,7 +75,7 @@ app.post('/api/leetcode/fetch', async (req, res) => {
   const data = await fetchData(username);
 
   if (data) {
-    const filePath = path.join(__dirname, 'data', 'leetcodeData.json'); // Adjusted file path
+    const filePath = path.join(__dirname, 'leetcodeData.json');
 
     fs.readFile(filePath, (err, content) => {
       if (err) {
@@ -110,7 +110,7 @@ app.post('/api/leetcode/fetch', async (req, res) => {
 // Endpoint to retrieve stored LeetCode data
 app.get('/api/leetcode/data/:username', (req, res) => {
   const { username } = req.params;
-  const filePath = path.join(__dirname, 'data', 'leetcodeData.json'); // Adjusted file path
+  const filePath = path.join(__dirname, 'leetcodeData.json');
 
   fs.readFile(filePath, (err, content) => {
     if (err) {
@@ -134,7 +134,4 @@ app.get('/api/leetcode/data/:username', (req, res) => {
   });
 });
 
-// Server listening
-app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
-});
+// Serve

@@ -1,31 +1,13 @@
 const express = require('express');
-const cors = require('cors');
-const path = require('path');
-const bodyParser = require('body-parser');
 const axios = require('axios');
 const fs = require('fs');
-const db = require('./db');
-const router = require('./routes');
+const path = require('path');
 
 const app = express();
-const PORT = process.env.PORT || 80;
+const PORT = 5000;
 
-// Database connection
-db.connect();
+app.use(express.json());
 
-// Middleware
-app.use(bodyParser.json({ limit: '50mb' }));
-app.use(bodyParser.urlencoded({ extended: true, limit: '50mb' }));
-app.use(cors());
-
-// Serve static files
-app.use('/uploads', express.static(path.join(__dirname, '/../uploads')));
-app.use(express.static(path.join(__dirname, '/../frontend/build')));
-
-// Routes
-app.use('/api', router);
-
-// LeetCode Data Fetch Function
 const fetchData = async (username) => {
   const url = 'https://leetcode.com/graphql';
   const query = {
@@ -64,7 +46,6 @@ const fetchData = async (username) => {
   }
 };
 
-// Endpoint to fetch and store LeetCode data
 app.post('/api/leetcode/fetch', async (req, res) => {
   const { username } = req.body;
 
@@ -75,7 +56,7 @@ app.post('/api/leetcode/fetch', async (req, res) => {
   const data = await fetchData(username);
 
   if (data) {
-    const filePath = path.join(__dirname, 'data', 'leetcodeData.json'); // Adjusted file path
+    const filePath = path.join(__dirname, 'leetcodeData.json');
 
     fs.readFile(filePath, (err, content) => {
       if (err) {
@@ -107,10 +88,9 @@ app.post('/api/leetcode/fetch', async (req, res) => {
   }
 });
 
-// Endpoint to retrieve stored LeetCode data
 app.get('/api/leetcode/data/:username', (req, res) => {
   const { username } = req.params;
-  const filePath = path.join(__dirname, 'data', 'leetcodeData.json'); // Adjusted file path
+  const filePath = path.join(__dirname, 'leetcodeData.json');
 
   fs.readFile(filePath, (err, content) => {
     if (err) {
@@ -134,7 +114,6 @@ app.get('/api/leetcode/data/:username', (req, res) => {
   });
 });
 
-// Server listening
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
