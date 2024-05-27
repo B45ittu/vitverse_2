@@ -135,13 +135,13 @@ function Post({ post, setPosts }) {
     }
   };
 
-  const handleAddAnswerClick = () => {
-    if (post.user._id === user._id) {
-      alert("You cannot answer your own question.");
-      return;
-    }
-    setIsModalOpen(true);
-  };
+  // const handleAddAnswerClick = () => {
+  //   if (post.user._id === user._id) {
+  //     alert("You cannot answer your own question.");
+  //     return;
+  //   }
+  //   setIsModalOpen(true);
+  // };
 
   return (
     <div className="post">
@@ -154,7 +154,7 @@ function Post({ post, setPosts }) {
       </div>
       <div className="post_body">
         <h3>{post?.questionName}</h3>
-        <Button className="post_btnAnswer" onClick={handleAddAnswerClick}>
+        <Button className="post_btnAnswer"  onClick={() => setIsModalOpen(true)}>
           Add answer
         </Button>
         <Modal
