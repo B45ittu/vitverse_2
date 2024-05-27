@@ -92,10 +92,13 @@ function QuoraHeader() {
   const goToPeople = () => {
     navigate("/people");
   };
-
-  const gotoTodo=()=>{
-    navigate("/Todo");
+  const goToProfile = () => {
+    navigate("/profilePage");
   };
+
+  // const gotoTodo=()=>{
+  //   navigate("/Todo");
+  // };
 
   return (
     <div className="header">
@@ -143,12 +146,16 @@ function QuoraHeader() {
         </div>
 
         <div className="header_rem">
-          <span onClick={loggingOut}>
+          {/* <span onClick={loggingOut}> */}
+          <span onClick={goToProfile}>
             <Avatar src={user?.photo} />
           </span>
           <div>
             <Button onClick={() => setIsModalOpen(true)}>Add Question</Button>
           </div>
+          <span onClick={loggingOut}>
+          <Button>Log Out</Button>
+          </span>
 
           <Modal
             open={isModalOpen}
