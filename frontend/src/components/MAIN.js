@@ -1,12 +1,12 @@
 import React from 'react'
-import QuoraHeader from './QuoraHeader'
+// import QuoraHeader from './QuoraHeader'
 import Sidebar from './sidebar'
 import Feed from './Feed'
 import Widgets from'./widgets'
-import './Quora.css'
+import './MAIN.css'
 import { useEffect } from 'react'
 
-function Quora() {
+function MAIN() {
 
     useEffect(() => {
         const handleScroll = () => {
@@ -38,4 +38,4 @@ function Quora() {
 
 };
 
-export default Quora
+export default MAIN

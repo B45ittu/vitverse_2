@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import CottageIcon from "@mui/icons-material/Cottage";
-import "./QuoraHeader.css";
+import "./Header.css";
 import {
   AssignmentTurnedInOutlined,
   ExpandMore,

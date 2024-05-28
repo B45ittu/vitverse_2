@@ -1,7 +1,8 @@
+/* eslint-disable no-unused-vars */
 import './widgetscontent.css';
 import React, { useState } from "react";
 import CottageIcon from "@mui/icons-material/Cottage";
-import "./QuoraHeader.css";
+// import "./QuoraHeader.css";
 import {
   AssignmentTurnedInOutlined,
   ExpandMore,
