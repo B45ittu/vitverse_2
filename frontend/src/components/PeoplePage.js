@@ -3,6 +3,44 @@ import fetchUsers from '../fetchUsers';
 import axios from 'axios';
 import './peoplePage.css';
 
+async function fetchData(username) {
+  const url = 'https://leetcode.com/graphql';
+  const query = `{
+    matchedUser(username: "${username}") {
+      username
+      submitStats: submitStatsGlobal {
+        acSubmissionNum {
+          difficulty
+          count
+          submissions
+        }
+      }
+    }
+  }`;
+
+  try {
+    const response = await fetch(url, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ query }),
+    });
+
+    const responseData = await response.json();
+    const { data } = responseData;
+
+    if (data && data.matchedUser) {
+      return data.matchedUser;
+    } else {
+      console.log("No data found for the provided username:", username);
+      return null;
+    }
+  } catch (error) {
+    console.error("Error fetching data for username", username, ":", error);
+    return null;
+  }
+}
 const PeoplePage = () => {
   const [users, setUsers] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
@@ -100,9 +138,10 @@ const PeoplePage = () => {
               value={searchQuery}
               onChange={handleSearchChange}
             />
-            <button type="submit" disabled={loading}>
+            <button type="submit" disabled={loading} onClick={() => fetchData(searchQuery)}>
               {loading ? "Searching..." : "Search"}
             </button>
+          
           </div>
         </form>
         {error && <p>{error}</p>}

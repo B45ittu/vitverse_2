@@ -68,6 +68,7 @@ function App() {
           <Route path="/Compiler" element={<Compiler />} />
           <Route path="/people" element={<PeoplePage />} />
           <Route path="/Todo" element={<Todo />} />
+          {/* <Route path="/page" element={<page />} /> */}
           {/* <Route path="/profilePage" element={<Profile/>}/> */}
           <Route path="/profile" element={<ProfilePage />} />
         </Routes>
