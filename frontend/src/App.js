@@ -3,13 +3,13 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import "./App.css";
 import Login from "./authentication/login";
-import Quora from "./components/Quora";
+import Main from "./components/MAIN";
 import LeaderboardPage from "./components/Leaderboard";
 import { login, selectUser } from "./features/userSlice";
 import { auth, db } from "./firebase";
 import { onAuthStateChanged } from "firebase/auth";
 import { setDoc, doc } from "firebase/firestore";
-import QuoraHeader from "./components/QuoraHeader";
+import QuoraHeader from "./components/Header";
 import Compiler from "./components/Compiler";
 import PeoplePage from './components/PeoplePage';
 import Todo from "./components/Todo";
@@ -61,15 +61,14 @@ function App() {
         <Routes>
           <Route
             path="/"
-            element={user ? <Quora /> : <Login />}
+            element={user ? <Main /> : <Login />}
           />
           <Route path="/leaderboard" element={<LeaderboardPage />} />
           {/* <Route path="/profile/:userId" component={Profile} /> */}
           <Route path="/Compiler" element={<Compiler />} />
           <Route path="/people" element={<PeoplePage />} />
           <Route path="/Todo" element={<Todo />} />
-          {/* <Route path="/page" element={<page />} /> */}
-          {/* <Route path="/profilePage" element={<Profile/>}/> */}
+          <Route path="/PeoplePage" element={<PeoplePage/>}/>
           <Route path="/profile" element={<ProfilePage />} />
         </Routes>
       </div>

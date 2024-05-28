@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import fetchUsers from '../fetchUsers';
-import axios from 'axios';
 import './peoplePage.css';
+import fetchUserStats from './leetFetcher';
 
 async function fetchData(username) {
   const url = 'https://leetcode.com/graphql';
@@ -41,10 +41,10 @@ async function fetchData(username) {
     return null;
   }
 }
+
 const PeoplePage = () => {
   const [users, setUsers] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
-  const [searchResults, setSearchResults] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [leetCodeData, setLeetCodeData] = useState(null);
@@ -58,37 +58,16 @@ const PeoplePage = () => {
     getUsers();
   }, []);
 
-  const handleSearchChange = (e) => {
-    setSearchQuery(e.target.value);
-  };
-
-  const handleSearchSubmit = async (e) => {
-    e.preventDefault();
+  const handleSearchChange = async (e) => {
+    const query = e.target.value;
+    setSearchQuery(query);
     setLoading(true);
     setError("");
-    try {
-      const response = await axios.get(`/api/user/search/${searchQuery}`);
-      setSearchResults(response.data);
-    } catch (error) {
-      console.error("Error searching for users:", error);
-      setError("Error searching for users. Please try again.");
-    }
-    setLoading(false);
-  };
 
-  const handleLeetCodeSearchSubmit = async (e) => {
-    e.preventDefault();
-    setLoading(true);
-    setError("");
-    setLeetCodeData(null);
     try {
-      // Fetch and store data
-      await axios.post('/api/leetcode/fetch', { username: searchQuery });
-
-      // Retrieve stored data
-      const response = await axios.get(`/api/leetcode/data/${searchQuery}`);
-      if (response.data) {
-        setLeetCodeData(response.data);
+      const data = await fetchUserStats(query.trim());
+      if (data) {
+        setLeetCodeData(data);
       } else {
         setError("No data found for the provided LeetCode ID.");
       }
@@ -96,19 +75,7 @@ const PeoplePage = () => {
       console.error("Error fetching LeetCode data:", error);
       setError("Error fetching LeetCode data. Please try again.");
     }
-    setLoading(false);
-  };
 
-  const handleConnect = async (userId) => {
-    setLoading(true);
-    setError("");
-    try {
-      // Implement your connect logic here, using the userId
-      console.log("Connecting to user:", userId);
-    } catch (error) {
-      console.error("Error connecting to user:", error);
-      setError("Error connecting to user. Please try again.");
-    }
     setLoading(false);
   };
 
@@ -129,21 +96,16 @@ const PeoplePage = () => {
 
       <h1>Search</h1>
       <div className='Search'>
-        <form onSubmit={handleLeetCodeSearchSubmit}>
-          <div>
-            <label htmlFor="searchQuery">Leetcode ID: </label>
-            <input
-              type="text"
-              id="searchQuery"
-              value={searchQuery}
-              onChange={handleSearchChange}
-            />
-            <button type="submit" disabled={loading} onClick={() => fetchData(searchQuery)}>
-              {loading ? "Searching..." : "Search"}
-            </button>
-          
-          </div>
-        </form>
+        <div>
+          <label htmlFor="searchQuery">Leetcode ID: </label>
+          <input
+            type="text"
+            id="searchQuery"
+            value={searchQuery}
+            onChange={handleSearchChange}
+          />
+          {loading ? <p>Searching...</p> : null}
+        </div>
         {error && <p>{error}</p>}
         {leetCodeData && (
           <div className="leetcode-data">
