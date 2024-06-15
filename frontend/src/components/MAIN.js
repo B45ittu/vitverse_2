@@ -2,7 +2,7 @@ import React from 'react'
 // import QuoraHeader from './QuoraHeader'
 import Sidebar from './sidebar'
 import Feed from './Feed'
-import Widgets from'./widgets'
+import Widgets from'./Widgets'
 import './MAIN.css'
 import { useEffect } from 'react'
 
